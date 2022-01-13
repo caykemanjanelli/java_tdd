@@ -1,6 +1,7 @@
 package br.com.alura.tdd.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,16 +13,18 @@ import br.com.alura.tdd.modelo.Funcionario;
 public class BonusServiceTest {
     
     @Test
-    void BonusZeroParaSalarioMaiorQue10000() {
+    public void bonusZeroParaSalarioMaiorQue10000() {
 
         BonusService bonus = new BonusService();
-        var valorBonus = bonus.calcularBonus(new Funcionario("Jose", LocalDate.now(), new BigDecimal("20000")));
-
-        assertEquals(new BigDecimal("0.00"), valorBonus);
+        //var valorBonus = bonus.calcularBonus(new Funcionario("Jose", LocalDate.now(), new BigDecimal("20000")));
+        assertThrows(IllegalArgumentException.class
+                    ,()-> bonus.calcularBonus(new Funcionario("Jose", LocalDate.now(), new BigDecimal("20000")))
+                    );
+        //assertEquals(new BigDecimal("0.00"), valorBonus);
     }
 
     @Test
-    void BonusDe10PorCentoParaSalarioAte10000() {
+    public void bonusDe10PorCentoParaSalarioAte10000() {
 
         BonusService bonus = new BonusService();
         var valorBonus = bonus.calcularBonus(new Funcionario("Jose", LocalDate.now(), new BigDecimal("2500")));
@@ -30,8 +33,8 @@ public class BonusServiceTest {
     }
 
     @Test
-    void BonusDe10PorCentoParaSalarioigual10000() {
-
+    public void bonusDe10PorCentoParaSalarioigual10000() {
+        
         BonusService bonus = new BonusService();
         var valorBonus = bonus.calcularBonus(new Funcionario("Jose", LocalDate.now(), new BigDecimal("10000")));
 
